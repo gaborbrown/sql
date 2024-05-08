@@ -1,0 +1,50 @@
+1. feladat
+filter:
+{
+
+  "genres": "Short",
+
+  "year": { "$gte": 1945, "$lte": 1970 }
+
+}
+
+project:
+{
+
+  "_id": 0,
+
+  "title": 1,
+
+  "year": 1
+
+}
+
+sort:
+{
+
+  "year": 1,
+
+  "title": 1
+
+}
+
+2. feladat
+
+db.users.find({"email":{$regex: /\.com$/}}, {"_id": 0, "name": 1, "email": 1})
+
+3. feladat
+
+db.movies.aggregate([{$match: {year: {$gt: 1950}}}, {$group: {_id: "$rated", avgRuntime: {$avg: "$runtime"}}}, {$project: {_id: 0, rated: "$_id", avgRuntime: 1}}])
+
+4. feladat
+MATCH (m:Movie)<-[:ACTED_IN]-(p:Person)
+WHERE m.released > 1970 OR toLower(m.title) CONTAINS "love" 
+RETURN m.title AS cim, p.name AS nev 
+ORDER BY cim DESC
+
+5. feladat
+MATCH (m:Movie)-[:DIRECTED]->(p:Person)
+WITH p, COUNT(m) AS mennyitRendezett
+RETURN p.name AS Rendezo, mennyitRendezett
+ORDER BY mennyitRendezett DESC
+LIMIT 5
