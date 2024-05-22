@@ -1,0 +1,14 @@
+
+Redis:
+SET konyvtar_neve "Könyvtár"
+HSET konyv:1 cim "1984" szerzo "George Orwell" mufaj "Disztópia"
+SADD mufajok "Fikció" "Tudományos fantasztikum" "Disztópia"
+RPUSH kolcsonzott_konyvek "1984" "To Kill a Mockingbird" "The Great Gatsby"
+ZADD kolcsonzesek 5 "1984" 3 "To Kill a Mockingbird" 2 "The Great Gatsby"
+
+Neo4j:
+MATCH (tom:Person {name: "Tom Hanks"})-[:ACTED_IN]->(movie:Movie)<-[:ACTED_IN]-(szineszek:Person)
+WHERE szineszek.name <> "Tom Hanks"
+RETURN DISTINCT szineszek.name AS szineszek_nev
+ORDER BY szineszek_nev;
+
